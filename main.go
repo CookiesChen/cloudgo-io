@@ -1,14 +1,16 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"github.com/CookiesChen/cloudgo-io/router"
+	"github.com/urfave/negroni"
 )
 
+const port = "9090"
+
 func main() {
-	h := http.FileServer(http.Dir("public"))
-	err := http.ListenAndServe(":9090", h)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	r := router.R
+
+	n := negroni.Classic()
+	n.UseHandler(r)
+	n.Run(": " + port)
 }
