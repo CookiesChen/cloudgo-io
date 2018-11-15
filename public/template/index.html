@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link href="../css/index.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../js/hello.js"></script>
     <title>CloudIO-GOLANG</title>
 </head>
 <body>
@@ -10,6 +12,7 @@
         <img id="image" src="../img/background.jpg">
     </div>
     <div id="title">Welcome to CookiesChen's MiaoMiao House</div>
+    <p class="time">Now time is {{.Time}}</p>
     <form action="/form" method="post">
         <div id="username">
             username <input type="text" name="username">

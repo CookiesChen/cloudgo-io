@@ -2,9 +2,11 @@ package controller
 
 import (
 	"fmt"
+	"github.com/unrolled/render"
 	"html/template"
 	"log"
 	"net/http"
+	"time"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request)  {
@@ -19,17 +21,23 @@ func FormHandler(w http.ResponseWriter, r *http.Request)  {
 		r.ParseForm()
 		fmt.Println("username:", r.Form["username"])
 		fmt.Println("password:", r.Form["password"])
+		t, _ := template.ParseFiles("./public/template/form.html")
+		log.Println(t.Execute(w, struct {
+			Name      string `json:"name"`
+			Password string `json:"password"`
+		}{Name: r.Form["username"][0], Password: r.Form["password"][0]}))
 	}
 }
 
 func UnknownHandler(w http.ResponseWriter, r *http.Request)  {
-	w.WriteHeader(500)
+	http.Error(w, "no such directory", 500)
 }
 
-func ApiTestHandler(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("./public/template/jsTest.html")
-	log.Println(t.Execute(w, struct {
-		ID      string `json:"id"`
-		Content string `json:"content"`
-	}{ID: "8675309", Content: "Hello from Go!"}))
+func TimeHandler(w http.ResponseWriter, r *http.Request)  {
+	formatter := render.New(render.Options{
+		IndentJSON: true,
+	})
+	formatter.JSON(w, http.StatusOK, struct {
+		Time string `json:"time"`
+	}{Time: time.Now().String()})
 }

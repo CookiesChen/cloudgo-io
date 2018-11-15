@@ -1,8 +1,7 @@
 $(document).ready(function() {
     $.ajax({
-        url: "/api/test"
+        url: "/time"
     }).then(function(data) {
-        $('.greeting-id').append(data.id);
-        $('.greeting-content').append(data.content);
+        $('.time').append(data.time);
     });
 });

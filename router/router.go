@@ -13,7 +13,7 @@ func init()  {
 
 	R.HandleFunc("/", controller.HomeHandler).Methods("GET")
 	R.HandleFunc("/form", controller.FormHandler).Methods("POST")
+	R.HandleFunc("/time", controller.TimeHandler).Methods("GET")
 	R.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
-	R.HandleFunc("/api/test", controller.ApiTestHandler).Methods("GET")
 	R.PathPrefix("/").HandlerFunc(controller.UnknownHandler)
 }
